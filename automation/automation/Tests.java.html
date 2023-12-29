@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>Tests.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Tests.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">loginTests</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.openqa.selenium.By</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.openqa.selenium.WebDriver</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.openqa.selenium.chrome.ChromeDriver</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">org.testng.annotations.Test</span><span class="s0">;</span>
+
+<span class="s0">import static </span><span class="s1">org.testng.Assert.assertTrue</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Tests {</span>
+    <span class="s1">WebDriver driver = </span><span class="s0">new </span><span class="s1">ChromeDriver()</span><span class="s0">;</span>
+
+    <span class="s1">@Test(priority = </span><span class="s2">1</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">successfulLogin() {</span>
+        <span class="s1">driver.manage().window().maximize()</span><span class="s0">;</span>
+        <span class="s1">driver.get(</span><span class="s3">&quot;https://the-internet.herokuapp.com/&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.xpath(</span><span class="s3">&quot;//a[contains(text(),</span><span class="s0">\&quot;</span><span class="s3">Form Authentication</span><span class="s0">\&quot;</span><span class="s3">)]&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;username&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;tomsmith&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;password&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;SuperSecretPassword!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.className(</span><span class="s3">&quot;radius&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">String expectedResult = </span><span class="s3">&quot;You logged into a secure area!&quot;</span><span class="s0">;</span>
+        <span class="s1">String actualResult = driver.findElement(By.id(</span><span class="s3">&quot;flash&quot;</span><span class="s1">)).getText()</span><span class="s0">;</span>
+        <span class="s1">assertTrue(actualResult.contains(expectedResult))</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test(priority = </span><span class="s2">2</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">wrongUsername() {</span>
+        <span class="s1">driver.get(</span><span class="s3">&quot;https://the-internet.herokuapp.com/&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.xpath(</span><span class="s3">&quot;//a[contains(text(),</span><span class="s0">\&quot;</span><span class="s3">Form Authentication</span><span class="s0">\&quot;</span><span class="s3">)]&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;username&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;wrongUsername&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;password&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;SuperSecretPassword!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.className(</span><span class="s3">&quot;radius&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">String expectedResult = </span><span class="s3">&quot;Your username is invalid!&quot;</span><span class="s0">;</span>
+        <span class="s1">String actualResult = driver.findElement(By.id(</span><span class="s3">&quot;flash&quot;</span><span class="s1">)).getText()</span><span class="s0">;</span>
+        <span class="s1">assertTrue(actualResult.contains(expectedResult))</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test(priority = </span><span class="s2">3</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">wrongPassword() {</span>
+        <span class="s1">driver.get(</span><span class="s3">&quot;https://the-internet.herokuapp.com/&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.xpath(</span><span class="s3">&quot;//a[contains(text(),</span><span class="s0">\&quot;</span><span class="s3">Form Authentication</span><span class="s0">\&quot;</span><span class="s3">)]&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;username&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;tomsmith&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;password&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;wrongpassword&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">driver.findElement(By.className(</span><span class="s3">&quot;radius&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">String expectedResult = </span><span class="s3">&quot;Your password is invalid!&quot;</span><span class="s0">;</span>
+        <span class="s1">String actualResult = driver.findElement(By.id(</span><span class="s3">&quot;flash&quot;</span><span class="s1">)).getText()</span><span class="s0">;</span>
+        <span class="s1">assertTrue(actualResult.contains(expectedResult))</span><span class="s0">;</span>
+        <span class="s1">driver.quit()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>

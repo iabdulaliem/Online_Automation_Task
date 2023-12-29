@@ -1,0 +1,6 @@
+checkBox\CheckBoxTests.class
+forgetPassword\ForgetPasswordTests.class
+loginTests\LoginTests.class
+fileUpload\FileUploadTests.class
+baseTest\BaseTests.class
+statusCode\StatusCodeTests.class
